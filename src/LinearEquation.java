@@ -19,21 +19,25 @@ public class LinearEquation {
 /* Calculates and returns distance between (x1, y1) and (x2, y2), rounded to
    the nearest hundredth */
     public double distance() {
-        return Math.round((Math.sqrt(Math.pow((x2-x1),2) + Math.pow((y2-y1). 2)));
+        return roundedToHundredth(Math.sqrt(Math.pow((x2-x1),2) + Math.pow((y2-y1), 2)));
+    }
+
+    public start() {
+
     }
 
 
     /* Calculates and returns the y-intercept of the line between (x1, y1) and
        (x2, y2), rounded to the nearest hundredth */
     public double yIntercept() {
-        return y2 - (slope() * x2);
+        return roundedToHundredth(y1 - (slope() * x1));
     }
 
 
     /* Calculates and returns the slope of the line between (x1, y1) and
        (x2, y2), rounded to the nearest hundredth */
     public double slope() {
-        return roundedToHundredth((y2-y1) / (x2 -x1));
+        return roundedToHundredth(((double)(y2-y1) / (x2 -x1)));
     }
 
 
@@ -63,21 +67,35 @@ public class LinearEquation {
      */
     public String equation() {
         String equation = "";
-        if (slope() == Math.round(slope())) {
-            equation = "y = " + slope() + "x";
+        if (slope() == 0) {
+            return "y = " + yIntercept();
+        }
+        else if (slope() == 1){
+            equation = "y = x ";
+        }
+        else if (slope() == -1) {
+            equation = "y = -x ";
+        }
+        else if (slope() * 100 == Math.round(slope() * 100)) {
+            equation = "y = " + (int) slope() + "x ";
         }
         else {
-            equation = "y = " + (y2-y1) + "/" + (x2 - x1) + "x ";
+            if (slope() > 0) {
+                equation = "y = " + Math.abs((y2 - y1)) + "/" + Math.abs((x2 - x1)) + "x ";
+            }
+            else {
+                equation = "y = " + "-" + Math.abs((y2 - y1)) + "/" + Math.abs((x2 - x1)) + "x ";
+            }
         }
 
         if (yIntercept() == 0) {
             equation += "";
         }
         else if (yIntercept() < 0) {
-            equation += "-" + Math.abs(yIntercept());
+            equation += " - " + Math.abs(yIntercept());
         }
         else {
-            equation += "+" + yIntercept();
+            equation += "+ " + yIntercept();
         }
         return equation;
     }
@@ -96,8 +114,8 @@ public class LinearEquation {
         HINT:  the Math.round method can help with this!
      */
     public double roundedToHundredth(double toRound){
-        double rounded = (Math.round(toRound * 100)) / 100;
-=        return rounded;
+        double rounded = ((double)Math.round(toRound * 100)) / 100;
+        return rounded;
     }
     /* Returns a string that includes all information about the linear equation, each on
        separate lines:
